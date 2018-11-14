@@ -1,0 +1,190 @@
+##c++测试题
+选出下列问题最正确的答案，其中有些问题是多选题，请在30分钟完成：
+1. function call is always an rvalue?
+A. True
+B. False
+2. c++中 class 和struct的区别？
+A. class 可以被继承，struct 不可以。
+B. class可以有virtual function, struct不可以。
+C. 默认情况下，class中所有的function都是private, 而struct中它们都是public.
+D. 在class中operator可以被overload,在struct中不可以。
+E. 以上所有选项。
+3. 对于下列code:
+namespace WQ {
+void foo() {
+x++;
+}
+int x;
+}
+在namespace WQ中，function foo可以访问变量x?
+A. True
+B. False.
+4. 下列code:
+#include <iostream>
+#include <deque>
+using namespace std;
+int main() {
+deque<int> d;
+d.push_back(1);
+d.push_back(2);
+d.push_back(3);
+d.push_back(4);
+for(auto i = d.begin(); i!=d.end(); ++i)
+if ((i)%2 == 0)
+d.erase(i);
+for(auto i = d.begin(); i!=d.end(); ++i)
+cout << (i) << endl;
+}
+它的作用是什么？
+A.删除deque中的奇数。
+B.删除deque中的偶数。
+C.删除所有的数字。
+D.编译错误。
+E.undefined行为，可能导致segmentation fault.
+5. class Base {
+public:
+~Base(){} //(A)
+};
+
+class Derived: public Base {
+public:
+~Derived(){} //(B)
+};
+int main() {
+Base *b = new Derived();
+delete b;
+}
+关于析构函数调用的顺序？
+A. 先A后B
+B. 先B后A
+C. 只有A
+D. 只有B.
+E. compile错误。
+
+template<typename T> class Foo {
+public:
+int B(T t); //(A)
+int B(int i); //(B)
+int B(int i) const; //(C)
+};
+template<> class Foo(bool) {
+public:
+int B(int i); //(D)
+int B(int i) const; //(E)
+};
+int main() {
+Foo<bool> f;
+const Foo<bool> g = f;
+g.B(10); //(F)
+}
+(F)处调用哪个函数？（）
+下列哪种cast可以用来将int转为pointer类型？
+A. static_cast
+B. dynamic_cast
+
+reinterpret_cast
+pointer_cast
+以上都不对。
+
+include <iostream>
+struct Base {
+Base() {std::cout << “Hello World” << std::endl;}
+unsigned int foo;
+}；
+struct C1： virtual public Base{}；
+struct C2： virtual public Base{}；
+struct C3： public Base{}；
+struct C4： public Base{}；
+struct Derived:public C1, public C2, public C3, public C4{}；
+int main() {
+Derived d;
+return 0;
+}
+“Hello World”将被显示多少次？
+A. 1
+B. 2
+C. 3
+D. 编译错误
+E. 依赖编译器实现。
+
+void newInt(int* p) {
+p = new int;
+*p++ = 2;
+}
+int main() {
+int i = 0;
+newInt(&i);
+std::cout << i;
+return 0;
+}
+将打印什么值？
+A 1
+B 2
+C 3
+D 未定义的结果。
+C 编译错误
+
+下列函数的作用是？
+int f(int a, int b) {
+return a%b ? f(b, a%b) : b;
+}
+A. 最小公约数。
+B “A” combination “B”
+C. 大数被小数除，返回余数。
+D. 计算polynomial coefficient.
+E. 以上都不对。
+
+下列哪些操作符可以被overload?
+A. +=
+B. []
+C. ,
+D. =
+E. 以上都可以。
+
+13.
+#include <iostream>
+int main() {
+int x = 3;
+switch(x) {
+case 0:
+int x = 1;
+std::cout << x << std::endl;
+break;
+case 3:
+std::cout << x << std::endl;
+break;
+default:
+x=2;
+std::cout << x << std::endl;
+}
+return 0;
+}
+A. 0
+B. 1
+C. 2
+D. 3
+5. 编译错误。
+
+#include <iostream>
+struct Base{
+Base():foo(20000) {}
+Base(double b):foo(b*1.1) {}
+double foo;
+};
+struct Derived: public virtual Base{
+Derived(double b):Base(b) {}
+};
+
+struct MostDerived: public virtual Base{
+MostDerived(double b):Derived(b) {}
+};
+int main() {
+MostDerived p(30000);
+std::cout << p.foo << std::endl;
+return 0;
+}
+A 20000
+B 22000
+C 30000
+D 33000
+E 编译错误
